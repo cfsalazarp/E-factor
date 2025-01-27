@@ -56,7 +56,7 @@ export class AuthService {
    * @returns El token o null si no está autenticado.
    */
   getToken(): string | null {
-    return this.token ?? localStorage.getItem('token');
+    return this.token ?? localStorage.getItem('auth_token');
   }
 
   /**
@@ -64,7 +64,7 @@ export class AuthService {
    */
   logout(): void {
     this.token = "";
-    localStorage.removeItem('token');
+    localStorage.removeItem('auth_token');
   }
 
   /**

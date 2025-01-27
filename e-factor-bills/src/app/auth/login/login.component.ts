@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {
   FormBuilder,
   FormGroup,
@@ -27,8 +28,10 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   title = 'Login E-Factor';
+
+  private _snackBar = inject(MatSnackBar);
 
   loginForm: FormGroup;
 
@@ -47,6 +50,16 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.authService.isAuthenticated().subscribe({
+      next: (res) => {
+        if (res) {
+          this.router.navigate(['/e-factor/dashboard']);
+        }
+      },
+    });
+  }
+
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log('Form Submitted', this.loginForm.value);
@@ -54,11 +67,19 @@ export class LoginComponent {
         next: (response) => {
           console.log('Autenticación exitosa:', response);
           this.errorMessage = '';
+          this._snackBar.open('Autenticación exitosa','',{
+            duration: 2000,
+            panelClass: ['succes-snackbar'],
+          });
           this.router.navigate(['/e-factor/dashboard']);
         },
         error: (error) => {
           this.errorMessage = error.message;
           console.error('Error al autenticar:', error);
+          this._snackBar.open(this.errorMessage ?? 'Unknown error','',{
+            duration: 2000,
+            panelClass: ['error-snackbar'],
+          });
         },
       });
     }

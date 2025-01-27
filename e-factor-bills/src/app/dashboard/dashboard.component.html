@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>folder</mat-icon>
+    <mat-card-title>Dashboard</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      Documentos totales: {{ totalInvoices }}
+    </p>
+    <p>
+      Usados: {{ usedInvoices }}
+    </p>
+    <p>
+      Restantes: {{ this.totalInvoices - this.usedInvoices }}
+    </p>
+
+  </mat-card-content>
+</mat-card>

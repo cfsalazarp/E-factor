@@ -1,1 +1,22 @@
-<p>sidebar works!</p>
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <span class="app-title">E-Factor</span>
+  </div>
+  <div class="sidebar-content">
+    <nav>
+      <ng-container *ngFor="let item of menuItems">
+        <div class="menu-item">
+          <a routerLink="/e-factor{{ item.link }}" routerLinkActive="active">
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              [fontIcon]="item.icon"
+            >
+            </mat-icon>
+            {{ item.title }}
+          </a>
+        </div>
+      </ng-container>
+    </nav>
+  </div>
+</aside>

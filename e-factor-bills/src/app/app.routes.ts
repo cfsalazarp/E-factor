@@ -4,6 +4,10 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ErrorComponent } from './auth/error/error.component';
+import { InvoicesComponent } from './invoices/invoices.component';
+import { ClientsComponent } from './clients/clients.component';
+import { ProductsComponent } from './products/products.component';
+import { SettingsComponent } from './settings/settings.component';
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -14,10 +18,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'invoices', loadComponent: () => import('./invoices/invoices.component').then(c => c.InvoicesComponent) },
-      { path: 'clients', loadComponent: () => import('./clients/clients.component').then(c => c.ClientsComponent) },
-      { path: 'products', loadComponent: () => import('./products/products.component').then(c => c.ProductsComponent) },
-      { path: 'settings', loadComponent: () => import('./settings/settings.component').then(c => c.SettingsComponent) },
+      { path: 'invoices', component: InvoicesComponent },
+      { path: 'clients', component: ClientsComponent},
+      { path: 'products', component: ProductsComponent },
+      { path: 'settings', component: SettingsComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
     title: 'e-factor Home',
