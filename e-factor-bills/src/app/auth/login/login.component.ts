@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -31,9 +32,14 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
+  username: string = '';
+  password: string = '';
+  errorMessage: string | null = null;
+
   constructor(
     private readonly fb: FormBuilder,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly authService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -44,7 +50,17 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log('Form Submitted', this.loginForm.value);
-      this.router.navigate(['/e-factor/dashboard']);
+      this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+        next: (response) => {
+          console.log('Autenticación exitosa:', response);
+          this.errorMessage = '';
+          this.router.navigate(['/e-factor/dashboard']);
+        },
+        error: (error) => {
+          this.errorMessage = error.message;
+          console.error('Error al autenticar:', error);
+        },
+      });
     }
   }
 }
