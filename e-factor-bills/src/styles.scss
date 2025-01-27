@@ -1,33 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
+@use "./styles/m3-theme" as m3;
+@include mat.core();
 
-// Define tus colores personalizados
-$app-primary: mat.define-palette(mat.$purple-palette, 500, 100, 900); // Cambia "indigo" por otro color
-$app-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400); // Cambia "pink" por otro color
-$app-warn: mat.define-palette(mat.$red-palette);
-
-// Define el tema
-$app-theme: mat.define-light-theme((
-  color: (
-    primary: $app-primary,
-    accent: $app-accent,
-    warn: $app-warn,
-  )
-));
-
-// Aplica el tema
-@include mat.all-component-themes($app-theme);
-
-// Define el tema oscuro
-$app-dark-theme: mat.define-dark-theme((
-  color: (
-    primary: $app-primary,
-    accent: $app-accent,
-    warn: $app-warn,
-  )
-));
-
-
+:root {
+  @include mat.all-component-themes(m3.$light-theme);
+  @include mat.system-level-colors(m3.$light-theme);
+  @include mat.system-level-typography(m3.$light-theme);
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
