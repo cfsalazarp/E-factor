@@ -20,17 +20,17 @@ export class SidebarComponent {
       link: '/dashboard'
     },
     {
-      title: 'Invoices',
+      title: 'Facturas',
       icon: 'receipt',
       link: '/invoices'
     },
     {
-      title: 'Clients',
+      title: 'Clientes',
       icon: 'person',
       link: '/clients'
     },
     {
-      title: 'Products',
+      title: 'Productos',
       icon: 'inventory_2',
       link: '/products'
     },

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -7,12 +7,18 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    @Inject('CONFIG') private config: any
+  ) {
+    this.apiUrl = config.FACTUS_URL_API,
+    this.clientId = config.FACTUS_CLIENT_ID;
+    this.clientSecret = config.FACTUS_CLIENT_SECRET;
+  }
 
   private readonly apiUrl = environment.FACTUS_URL_API;
   clientId = environment.FACTUS_CLIENT_ID;
   clientSecret = environment.FACTUS_CLIENT_SECRET;
-
   private token: string = "";
 
   /**
